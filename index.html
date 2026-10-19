@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+            name="description"
+            content="Organiser ses candidatures, relances et entreprises cibles."
+        />
+        <meta
+            name="keywords"
+            content="candidature, alternance, emploi, suivi, relance"
+        />
+        <meta name="author" content="https://github.com/Monsieur9Bre99" />
+        <title>Candidatech — Suivi de candidatures</title>
+        <!-- Font Awesome Link -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <!-- Supabase cdn -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            defer
+        ></script>
+        <!-- Supabase Configuration -->
+        <script src="js/supabase-config.js" defer></script>
+
+        <!-- Application Script -->
+        <script src="js/app.js" defer></script>
+    </head>
+    <body>
+            <main class="app-shell">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <button
+                        class="sidebar-toggle"
+                        id="sidebar-toggle"
+                        type="button"
+                        aria-label="Réduire la navigation"
+                        aria-expanded="true"
+                        title="Réduire la navigation"
+                    >
+                        <i
+                            class="fa-solid fa-bars-staggered"
+                            aria-hidden="true"
+                        ></i>
+                    </button>
+                    <a class="brand" href="#" aria-label="Candidatech, accueil">
+                        <span class="brand-copy">
+                            <strong><i class="fa-solid fa-cent-sign"
+                            aria-hidden="true"
+                        ></i>andidatech</strong>
+                            <small>Recherche d’alternance</small>
+                        </span>
+                    </a>
+                </div>
+                <nav class="nav" aria-label="Navigation principale">
+                    <button
+                        class="nav-link is-active"
+                        type="button"
+                        data-view="dashboard"
+                        aria-current="page"
+                        aria-label="Vue d’ensemble"
+                        title="Vue d’ensemble"
+                    >
+                        <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                        <span class="nav-label">Vue d’ensemble</span>
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="applications"
+                        aria-label="Candidatures"
+                        title="Candidatures"
+                    >
+                        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                        <span class="nav-label">Candidatures</span>
+                        <span class="nav-count" id="nav-app-count">0</span>
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="companies"
+                        aria-label="Entreprises cibles"
+                        title="Entreprises cibles"
+                    >
+                        <i class="fa-solid fa-building" aria-hidden="true"></i>
+                        <span class="nav-label">Entreprises cibles</span>
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="settings"
+                        aria-label="Données & paramètres"
+                        title="Données & paramètres"
+                    >
+                        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                        <span class="nav-label">Données & paramètres</span>
+                    </button>
+                </nav>
+            </main>
+</body>
+</html>
