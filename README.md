@@ -50,6 +50,40 @@ Le projet s'inspire de mon classeur « Tableau suivi candidatures & Benchmark »
 
 ## Structure du projet
 
+Le JavaScript natif utilise des modules ES organisés par responsabilité. Aucun bundler n’est nécessaire : `index.html` charge `js/main.js` comme module, ce qui convient à un déploiement statique tel que GitHub Pages.
+
+```text
+js/
+├── main.js                        # Point d’entrée de l’application
+├── landing.js                      # Point d’entrée du thème de la landing page
+├── application.js                 # Composition de l’interface et gestion des interactions
+├── components/
+│   ├── theme-toggle.js             # Bascule claire/sombre réutilisable
+│   └── toast.js                   # Notifications
+├── config/
+│   └── supabase-config.js         # Configuration du client Supabase
+├── services/
+│   ├── application-store.js       # État et synchronisation local/Supabase
+│   ├── backup-service.js          # Import/export JSON et CSV
+│   ├── local-data-service.js      # Persistance locale
+│   ├── record-mappers.js          # Conversion des modèles locaux et Supabase
+│   ├── supabase-auth-service.js   # Authentification
+│   ├── supabase-data-service.js   # Lecture et mutations distantes
+│   └── theme-service.js           # Préférence de thème partagée
+├── utils/
+│   ├── date.js                    # Dates et échéances
+│   ├── dom.js                     # Sélecteurs DOM
+│   ├── html.js                    # Échappement HTML et validation d’URL
+│   └── id.js                      # Identifiants
+└── views/
+    ├── dashboard-view.js          # Tableau de bord
+    ├── record-list-view.js        # Listes et filtres
+    └── record-view.js             # Lignes et fiches détaillées
+```
+
+`application.js` conserve l’orchestration de l’interface ; l’état partagé, la persistance locale et les transitions local/Supabase sont délégués à `services/application-store.js`. Les accès au stockage, les conversions, l’authentification, les imports/exports et les rendus restent isolés dans leurs modules dédiés. Le thème est piloté par le même service et le même composant sur la landing page et dans l’application. Les services Supabase vérifient les résultats des opérations avant que l’interface annonce un succès.
+
+Les lignes de candidature et d’entreprise présentent des actions distinctes (consulter, modifier et supprimer), avec des icônes accessibles. Les fiches restent en lecture seule jusqu’à l’action explicite de modification. Les initiales servent de repère visuel sans dépendre de logos récupérés à l’extérieur.
 
 <p align="center">
   <sub>&copy; 2026 - candidatech Un projet en cours, construit pour rendre la recherche d'emploi/alternance/stage plus simple à suivre.</sub>
