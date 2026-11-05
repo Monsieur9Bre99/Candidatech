@@ -1,0 +1,93 @@
+name: Deploy Candidatech site to GitHub Pages
+
+# Triggers the workflow every time there is a push to the main branch.
+on:
+  push:
+    branches: [main]
+
+  # Allows you to manually start the deployment from the Actions tab.
+  workflow_dispatch:
+
+# Restrict the permissions of the GITHUB_TOKEN to only what is strictly necessary to publish the website.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Avoid concurrent deployments.
+# A new deployment can cancel the one that is still in progress.
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+# Uses Bash for commands executed in the steps.
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Check the files and syntax before setting up the website.
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Retrieves the contents of the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Sets the version of Node.js used for the checks.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Checks that the files required for the website and Supabase are present.
+      - name: Check required deployment files
+        run: |
+          REQUIRED_FILES=(
+            "index.html"
+            "css/styles.css"
+            "js/main.js"
+            "js/config/supabase-config.js"
+            "supabase/schema.sql"
+          )
+
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Missing required file: $file"
+              exit 1
+            fi
+          done
+
+      # Check the JavaScript syntax before deployment.
+      - name: Check JavaScript syntax
+        run: |
+          find js -name '*.js' -print0 | while IFS= read -r -d '\0' file; do
+            echo "Checking $file"
+            node --check "$file"
+          done
+
+      # Configure the settings necessary for GitHub Pages.
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      # Prepare the files for the deployment job.
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  # Only publish the site if the build job was successful.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Deploys the artifact prepared by the build job.
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

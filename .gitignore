@@ -28,4 +28,5 @@ dist/
 
 # Fichiers système
 .DS_Store
+.vscode/
 Thumbs.db

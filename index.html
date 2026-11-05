@@ -1,107 +1,433 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-page="landing">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="light dark" />
         <meta
             name="description"
-            content="Organiser ses candidatures, relances et entreprises cibles."
+            content="Candidatech aide à suivre tes candidatures, tes relances et tes entreprises cibles, sans tableur tentaculaire."
         />
         <meta
             name="keywords"
-            content="candidature, alternance, emploi, suivi, relance"
+            content="suivi candidature, alternance, emploi, relance, entreprises"
         />
         <meta name="author" content="https://github.com/Monsieur9Bre99" />
-        <title>Candidatech — Suivi de candidatures</title>
-        <!-- Font Awesome Link -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:title"
+            content="Candidatech — Le cap sur ton prochain poste"
         />
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="css/styles.css" />
-        <!-- Supabase cdn -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-            defer
-        ></script>
-        <!-- Supabase Configuration -->
-        <script src="js/supabase-config.js" defer></script>
-
-        <!-- Application Script -->
-        <script src="js/app.js" defer></script>
+        <meta
+            property="og:description"
+            content="Un espace simple pour suivre tes candidatures, tes relances et tes entreprises cibles."
+        />
+        <title>Candidatech - Le cap sur ton prochain poste</title>
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="candidatech_favicon.png"
+        />
+        <!-- Styles -->
+        <link rel="stylesheet" href="css/landing.css" />
+        <script type="module" src="js/landing.js" defer></script>
     </head>
-    <body>
-            <main class="app-shell">
-            <aside class="sidebar">
-                <div class="sidebar-header">
-                    <button
-                        class="sidebar-toggle"
-                        id="sidebar-toggle"
-                        type="button"
-                        aria-label="Réduire la navigation"
-                        aria-expanded="true"
-                        title="Réduire la navigation"
-                    >
-                        <i
-                            class="fa-solid fa-bars-staggered"
-                            aria-hidden="true"
-                        ></i>
-                    </button>
-                    <a class="brand" href="#" aria-label="Candidatech, accueil">
-                        <span class="brand-copy">
-                            <strong><i class="fa-solid fa-cent-sign"
-                            aria-hidden="true"
-                        ></i>andidatech</strong>
-                            <small>Recherche d’alternance</small>
+    <body class="landing-page">
+        <a class="skip-link" href="#main">Aller au contenu</a>
+        <header class="site-header">
+            <a
+                class="brand"
+                href="./index.html"
+                aria-label="Candidatech, accueil"
+            >
+                <span class="brand-mark" aria-hidden="true">
+                    <i class="fa-solid fa-cent-sign"></i>
+                </span>
+                <span class="brand-name">candidatech</span>
+            </a>
+            <nav class="site-nav" aria-label="Navigation principale">
+                <a href="#fonctionnalites">Fonctionnalités</a>
+                <a href="#comment-ca-marche">Comment ça marche</a>
+
+                <!-- Ouvrir l'App     -->
+                <a class="button button-outline" href="./application.html"
+                    >Ouvrir l’application
+                </a>
+
+                <!-- ouvrir l'App + Auth  -->
+                <button
+                    class="button button-primary"
+                    onclick="window.location.href = './application.html#signup'"
+                >
+                    Mon compte
+                </button>
+
+                <!-- Toggle theme  -->
+                <button
+                    class="theme-toggle"
+                    id="theme-toggle"
+                    type="button"
+                    aria-label="Activer le thème sombre"
+                    title="Activer le thème sombre"
+                ></button>
+            </nav>
+        </header>
+
+        <main id="main">
+            <section class="hero section-wrap">
+                <div class="hero-copy">
+                    <p class="eyebrow">
+                        <span aria-hidden="true">✳</span> EMPLOI · ALTERNANCE ·
+                        STAGE
+                    </p>
+                    <h1>
+                        Ta recherche d’emploi mérite mieux qu’un
+                        <span>tableur tentaculaire.</span>
+                    </h1>
+                    <p class="hero-description">
+                        Candidatech rassemble tes candidatures, tes relances et
+                        tes entreprises cibles. Moins de « j’en étais où déjà ?
+                        », plus de prochaines étapes claires.
+                    </p>
+                    <div class="hero-actions">
+                        <a
+                            class="button button-primary"
+                            href="./application.html"
+                        >
+                            Ouvrir l’application
+                            <span aria-hidden="true">
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                ></i>
+                            </span>
+                        </a>
+                        <!-- <a class="button button-quiet" href="#demo">
+                            Voir la démo <span aria-hidden="true">↓</span>
+                        </a> -->
+                    </div>
+                    <p class="hero-note">
+                        <span aria-hidden="true">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </span>
+                        Totalement gratuit · Avec ou sans compte · Données
+                        locales par défaut
+                    </p>
+                </div>
+                <!-- Preview -->
+                <div
+                    class="preview-wrap"
+                    id="demo"
+                    aria-label="Aperçu illustratif du tableau de bord"
+                >
+                    <!-- preview window -->
+                    <div class="preview-window">
+                        <div class="preview-topbar">
+                            <div class="preview-brand">
+                                <span class="brand-mark" aria-hidden="true">
+                                    <i class="fa-solid fa-cent-sign"></i>
+                                </span>
+                                candidatech
+                            </div>
+                            <span class="preview-local"
+                                ><i></i> Espace local</span
+                            >
+                        </div>
+                        <!-- preview body -->
+                        <div class="preview-body">
+                            <div class="preview-greeting">
+                                <div>
+                                    <span class="preview-kicker"
+                                        >TON ESPACE PERSONNEL</span
+                                    >
+                                    <h2>On garde le cap.</h2>
+                                </div>
+                                <span class="preview-date">Cette semaine</span>
+                            </div>
+                            <!-- preview stats -->
+                            <div class="preview-stats">
+                                <div>
+                                    <span>Candidatures actives</span
+                                    ><strong>12</strong
+                                    ><small>ça avance 👟</small>
+                                </div>
+                                <div>
+                                    <span>Relances à faire</span
+                                    ><strong>3</strong
+                                    ><small>petit rappel amical</small>
+                                </div>
+                                <div>
+                                    <span>Entretiens</span><strong>2</strong
+                                    ><small>on croise les doigts</small>
+                                </div>
+                            </div>
+                            <!-- preview list -->
+                            <div class="preview-list">
+                                <div class="preview-list-heading">
+                                    <strong>Prochaines actions</strong>
+                                    <span>Voir tout →</span>
+                                </div>
+                                <!-- preview row -->
+                                <div class="preview-row">
+                                    <span
+                                        class="preview-icon preview-icon-green"
+                                        aria-hidden="true"
+                                        >↗</span
+                                    >
+                                    <span
+                                        ><strong>Relancer le recruteur</strong
+                                        ><small
+                                            >Atelier du Numérique · Alternance
+                                            DevOps</small
+                                        ></span
+                                    >
+                                    <time datetime="2026-10-29">Jeudi</time>
+                                </div>
+                                <div class="preview-row">
+                                    <span
+                                        class="preview-icon preview-icon-yellow"
+                                        aria-hidden="true"
+                                        >✳</span
+                                    >
+                                    <span
+                                        ><strong>Préparer l’entretien</strong
+                                        ><small
+                                            >Nuage & Compagnie · Ingénieur
+                                            systèmes</small
+                                        ></span
+                                    >
+                                    <time datetime="2026-10-30">Vendredi</time>
+                                </div>
+                            </div>
+                            <!-- disclaimer -->
+                            <p class="preview-disclaimer">
+                                Aperçu fictif - tes données ne sont pas
+                                affichées ici.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Floating note -->
+                    <div class="floating-note">
+                        <span aria-hidden="true">✓</span> Une prochaine étape,
+                        toujours en vue.
+                    </div>
+                </div>
+                <!-- Decorations -->
+                <span
+                    class="hero-decoration hero-decoration-one rotate"
+                    aria-hidden="true"
+                    >✳</span
+                >
+                <span
+                    class="hero-decoration hero-decoration-two rotate reverse"
+                    aria-hidden="true"
+                    >✳</span
+                >
+            </section>
+
+            <section class="trust-strip" aria-label="En bref">
+                <div class="section-wrap trust-items">
+                    <span><b>01</b> Un suivi simple</span>
+                    <span><b>02</b> Des actions concrètes</span>
+                    <span><b>03</b> Pas de tableur à dompter</span>
+                    <span><b>04</b> Ton espace, tes données</span>
+                </div>
+            </section>
+
+            <section class="features section-wrap" id="fonctionnalites">
+                <div class="section-heading">
+                    <p class="eyebrow">LE KIT ANTI-POST-IT PERDU</p>
+                    <h2>
+                        Tout le suivi au même endroit.<br /><span
+                            >Et la tête un peu plus libre.</span
+                        >
+                    </h2>
+                    <p>
+                        Les outils utiles pour avancer dans ta recherche — sans
+                        transformer ta recherche en métier à plein temps.
+                    </p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card feature-card-green">
+                        <span class="feature-icon" aria-hidden="true">
+                            <i
+                                class="fa-solid fa-briefcase"
+                                aria-hidden="true"
+                            ></i>
+                        </span>
+                        <p class="feature-index">01 / CANDIDATURES</p>
+                        <h3>Chaque candidature a son fil.</h3>
+                        <p>
+                            Poste, statut, date, contact, notes et prochaine
+                            action : retrouve le contexte sans fouiller 14
+                            onglets.
+                        </p>
+                    </article>
+                    <article class="feature-card feature-card-lilac">
+                        <span class="feature-icon" aria-hidden="true">◷</span>
+                        <p class="feature-index">02 / RELANCES</p>
+                        <h3>Le bon rappel, au bon moment.</h3>
+                        <p>
+                            Planifie les relances et les prochaines étapes. La
+                            mémoire, c’est bien ; un rappel, c’est plus fiable.
+                        </p>
+                    </article>
+                    <article class="feature-card feature-card-yellow">
+                        <span class="feature-icon" aria-hidden="true">
+                            <i
+                                class="fa-solid fa-building"
+                                aria-hidden="true"
+                            ></i>
+                        </span>
+                        <p class="feature-index">03 / ENTREPRISES</p>
+                        <h3>Garde tes entreprises dans le viseur.</h3>
+                        <p>
+                            Centralise les sociétés ciblées, les contacts, les
+                            offres repérées et l’état de ta prospection.
+                        </p>
+                    </article>
+                    <article class="feature-card feature-card-blue">
+                        <span class="feature-icon" aria-hidden="true">
+                            <i
+                                class="fa-solid fa-chart-line"
+                                aria-hidden="true"
+                            ></i>
+                        </span>
+                        <p class="feature-index">04 / VUE D’ENSEMBLE</p>
+                        <h3>Vois où tu en es, vraiment.</h3>
+                        <p>
+                            Retrouve tes candidatures actives, les relances à
+                            faire et les réponses reçues dans un tableau de bord
+                            clair.
+                        </p>
+                    </article>
+                    <article class="feature-card feature-card-pink">
+                        <span class="feature-icon" aria-hidden="true">⇧</span>
+                        <p class="feature-index">05 / SAUVEGARDES</p>
+                        <h3>Emporte tes données avec toi.</h3>
+                        <p>
+                            Exporte en JSON pour une sauvegarde ou en CSV pour
+                            retrouver tes données dans un tableur.
+                        </p>
+                    </article>
+                    <article class="feature-card feature-card-neutral">
+                        <span class="feature-icon" aria-hidden="true">☁</span>
+                        <p class="feature-index">06 / ESPACE PERSONNEL</p>
+                        <h3>Local d’abord, compte si tu veux.</h3>
+                        <p>
+                            Commence dans ton navigateur. La connexion Supabase
+                            est facultative ; la migration des données locales
+                            reste à ta demande.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="how-it-works" id="comment-ca-marche">
+                <div class="section-wrap how-layout">
+                    <div class="section-heading">
+                        <p class="eyebrow">TROIS ÉTAPES, PAS UN MBA EN EXCEL</p>
+                        <h2>
+                            Tu poses le cap.<br /><span
+                                >Candidatech garde le fil.</span
+                            >
+                        </h2>
+                        <p>
+                            Pas besoin de tout organiser parfaitement avant de
+                            commencer. Une candidature, une prochaine action :
+                            c’est déjà un bon départ.
+                        </p>
+                        <a
+                            class="button button-primary"
+                            href="./application.html"
+                            >Faire un tour dans l’app
+                            <span aria-hidden="true">↗</span></a
+                        >
+                    </div>
+                    <ol class="steps-list">
+                        <li>
+                            <span>1</span>
+                            <div>
+                                <h3>Ajoute une candidature</h3>
+                                <p>
+                                    Note l’entreprise, le poste et les quelques
+                                    infos que tu veux garder sous la main.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span>2</span>
+                            <div>
+                                <h3>Choisis la suite</h3>
+                                <p>
+                                    Prépare une relance, une recherche ou un
+                                    entretien - avec une échéance si ça t’aide.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span>3</span>
+                            <div>
+                                <h3>Reviens à l’essentiel</h3>
+                                <p>
+                                    Ouvre ton tableau de bord et concentre-toi
+                                    sur la prochaine action, pas sur la chasse
+                                    aux notes.
+                                </p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="closing section-wrap">
+                <div class="closing-card">
+                    <p class="eyebrow">LE PROCHAIN PAS EST LE BON</p>
+                    <h2>Prêt·e à reprendre le fil ?</h2>
+                    <p>
+                        Candidatech ne décroche pas le poste à ta place. Mais il
+                        peut t’éviter d’oublier cette relance importante.
+                    </p>
+                    <a class="button button-light" href="./application.html"
+                        >Ouvrir Candidatech
+                        <span aria-hidden="true">
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i>
                         </span>
                     </a>
+                    <span class="closing-doodle" aria-hidden="true">✳</span>
                 </div>
-                <nav class="nav" aria-label="Navigation principale">
-                    <button
-                        class="nav-link is-active"
-                        type="button"
-                        data-view="dashboard"
-                        aria-current="page"
-                        aria-label="Vue d’ensemble"
-                        title="Vue d’ensemble"
-                    >
-                        <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
-                        <span class="nav-label">Vue d’ensemble</span>
-                    </button>
-                    <button
-                        class="nav-link"
-                        type="button"
-                        data-view="applications"
-                        aria-label="Candidatures"
-                        title="Candidatures"
-                    >
-                        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-                        <span class="nav-label">Candidatures</span>
-                        <span class="nav-count" id="nav-app-count">0</span>
-                    </button>
-                    <button
-                        class="nav-link"
-                        type="button"
-                        data-view="companies"
-                        aria-label="Entreprises cibles"
-                        title="Entreprises cibles"
-                    >
-                        <i class="fa-solid fa-building" aria-hidden="true"></i>
-                        <span class="nav-label">Entreprises cibles</span>
-                    </button>
-                    <button
-                        class="nav-link"
-                        type="button"
-                        data-view="settings"
-                        aria-label="Données & paramètres"
-                        title="Données & paramètres"
-                    >
-                        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
-                        <span class="nav-label">Données & paramètres</span>
-                    </button>
-                </nav>
-            </main>
-</body>
+            </section>
+        </main>
+
+        <footer class="site-footer section-wrap">
+            <a
+                class="brand"
+                href="./index.html"
+                aria-label="Candidatech, accueil"
+            >
+                <span class="brand-mark" aria-hidden="true">
+                    <i class="fa-solid fa-cent-sign"></i>
+                </span>
+                <span class="brand-name">candidatech</span>
+            </a>
+            <p>
+                Un espace simple pour organiser vos candidatures, vos relances
+                et les entreprises que vous souhaitez rejoindre.
+            </p>
+            <a
+                href="https://github.com/Monsieur9Bre99/candidatech"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span aria-hidden="true">
+                    <i class="fa-solid fa-book-atlas"></i>
+                </span>
+                Code source ↗</a
+            >
+            <span>© 2026 Candidatech</span>
+        </footer>
+    </body>
 </html>

@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+            name="description"
+            content="Organiser ses candidatures, relances et entreprises cibles."
+        />
+        <meta
+            name="keywords"
+            content="candidature, alternance, emploi, suivi, relance"
+        />
+        <meta name="author" content="https://github.com/Monsieur9Bre99" />
+        <title>Candidatech — Suivi de candidatures</title>
+              <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="#"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <!-- Supabase cdn -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            defer
+        ></script>
+        <!-- Supabase Configuration -->
+        <script src="js/config/supabase-config.js" defer></script>
+
+        <!-- Application Script -->
+        <script type="module" src="js/main.js" defer></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Aller au contenu</a>
+        <!-- Application Shell-->
+        <div class="app-shell">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Sidebar Header -->
+                <div class="sidebar-header">
+                    <button
+                        class="sidebar-toggle"
+                        id="sidebar-toggle"
+                        type="button"
+                        aria-label="Réduire la navigation"
+                        aria-expanded="true"
+                        title="Réduire la navigation"
+                    >
+                        <i
+                            class="fa-solid fa-bars-staggered"
+                            aria-hidden="true"
+                        ></i>
+                    </button>
+                    <a
+                        class="brand"
+                        href="./index.html"
+                        aria-label="Candidatech, accueil"
+                    >
+                        <span class="brand-mark" aria-hidden="true"
+                            ><i
+                                class="fa-solid fa-cent-sign"
+                                aria-hidden="true"
+                            ></i>
+                        </span>
+                        <span class="brand-copy">
+                            <strong
+                                ><i
+                                    class="fa-solid fa-cent-sign"
+                                    aria-hidden="true"
+                                ></i
+                                >andidatech</strong
+                            >
+                            <small>Recherche d’alternance</small>
+                        </span>
+                    </a>
+                </div>
+                <!-- Main Navigation -->
+                <nav class="nav" aria-label="Navigation principale">
+                    <button
+                        class="nav-link is-active"
+                        type="button"
+                        data-view="dashboard"
+                        aria-current="page"
+                        aria-label="Vue d’ensemble"
+                        title="Vue d’ensemble"
+                    >
+                        <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                        <span class="nav-label">Vue d’ensemble</span>
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="applications"
+                        aria-label="Candidatures"
+                        title="Candidatures"
+                    >
+                        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                        <span class="nav-label">Candidatures</span>
+                        <span class="nav-count" id="nav-app-count">0</span>
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="companies"
+                        aria-label="Entreprises cibles"
+                        title="Entreprises cibles"
+                    >
+                        <i class="fa-solid fa-building" aria-hidden="true"></i>
+                        <span class="nav-label">Entreprises cibles</span>
+                        <span class="nav-count" id="nav-company-count"
+                            >0</span
+                    </button>
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-view="settings"
+                        aria-label="Données & paramètres"
+                        title="Données & paramètres"
+                    >
+                        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                        <span class="nav-label">Données & paramètres</span>
+                    </button>
+                </nav>
+                <!-- Sidebar Bottom -->
+                <div class="sidebar-bottom">
+                    <!-- User Account Information -->
+                    <div class="user-account">
+                        <span class="account-avatar" aria-hidden="true">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <div class="account-copy">
+                            <strong id="account-status">Mode local</strong>
+                            <small id="account-email">Compte anonyme</small>
+                        </div>
+                        <button
+                            class="account-action"
+                            id="account-action"
+                            type="button"
+                            aria-label="Se connecter"
+                            title="Se connecter"
+                        >
+                            <i
+                                class="fa-solid fa-arrow-right-to-bracket"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main id="main" class="main-content">
+                <!-- Topbar -->
+                <header class="topbar">
+                    <div>
+                        <p class="eyebrow" id="today-label">ESPACE PERSONNEL</p>
+                        <h1 id="page-title">Vue d’ensemble</h1>
+                    </div>
+                    <!-- Top Actions -->
+                    <div class="top-actions">
+                        <button
+                            class="theme-toggle"
+                            id="theme-toggle"
+                            type="button"
+                            aria-label="Activer le thème sombre"
+                            title="Activer le thème sombre"
+                        >
+                            <span
+                                class="theme-toggle-icon"
+                                aria-hidden="true"
+                            ></span>
+                        </button>
+                        <button
+                            class="button button-primary"
+                            id="quick-add"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                            <span id="quick-add-label"
+                                >Nouvelle candidature</span
+                            >
+                        </button>
+                    </div>
+                </header>
+                <!-- Dashboard View -->
+                <section
+                    class="view is-visible"
+                    id="view-dashboard"
+                    aria-labelledby="page-title"
+                >
+                    <div class="welcome-row">
+                        <div>
+                            <h1>
+                                Bonjour
+                                <span id="account-name">user name</span>,
+                            </h1>
+                            <h2>Garder le cap, une action à la fois.</h2>
+                            <p>
+                                Un suivi clair pour tes candidatures, tes
+                                relances et tes prochaines étapes.
+                            </p>
+                        </div>
+                        <!-- Goal Card -->
+                        <div class="goal-card">
+                            <span class="goal-label">Repère quotidien</span
+                            ><strong><span id="today-sent">0</span> / 5</strong
+                            ><small>candidatures envoyées aujourd’hui</small>
+                            <div class="goal-track">
+                                <span id="today-progress"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Statistics Grid -->
+                    <div class="stats-grid">
+                        <article class="stat-card">
+                            <span class="stat-label">Candidatures actives</span
+                            ><strong id="stat-active">0</strong
+                            ><small>en cours de suivi</small>
+                        </article>
+                        <article class="stat-card">
+                            <span class="stat-label">Relances à faire</span
+                            ><strong id="stat-followups">0</strong
+                            ><small>à traiter aujourd’hui ou en retard</small>
+                        </article>
+                        <article class="stat-card">
+                            <span class="stat-label">Entretiens</span
+                            ><strong id="stat-interviews">0</strong
+                            ><small>obtenus</small>
+                        </article>
+                        <article class="stat-card">
+                            <span class="stat-label">Réponses reçues</span
+                            ><strong id="stat-responses">0</strong
+                            ><small>hors candidatures sans réponse</small>
+                        </article>
+                    </div>
+                    <!-- Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <section class="panel panel-wide">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="eyebrow">À NE PAS OUBLIER</p>
+                                    <h2>Prochaines actions</h2>
+                                </div>
+                                <button
+                                    class="text-button"
+                                    data-go="applications"
+                                >
+                                    Voir les candidatures →
+                                </button>
+                            </div>
+                            <!-- Upcoming Actions List -->
+                            <div id="upcoming-list" class="action-list"></div>
+                        </section>
+                        <section class="panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="eyebrow">VUE RAPIDE</p>
+                                    <h2>Par statut</h2>
+                                </div>
+                            </div>
+                            <div id="status-breakdown" class="breakdown"></div>
+                        </section>
+                        <section class="panel panel-wide">
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="eyebrow">RÉCEMMENT MODIFIÉ</p>
+                                    <h2>Dernières candidatures</h2>
+                                </div>
+                                <button
+                                    class="text-button"
+                                    data-go="applications"
+                                >
+                                    Tout afficher →
+                                </button>
+                            </div>
+                            <div id="recent-list" class="table-wrap"></div>
+                        </section>
+                    </div>
+                </section>
+
+                <!-- Applications View -->
+                <section
+                    class="view"
+                    id="view-applications"
+                    aria-labelledby="page-title"
+                >
+                    <div class="section-intro">
+                        <div>
+                            <p>
+                                Une ligne par offre ou démarche spontanée.
+                                Chaque candidature active doit avoir une
+                                prochaine action.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Toolbar -->
+                    <div class="toolbar">
+                        <label class="search-field"
+                            ><span class="sr-only"
+                                >Rechercher une candidature</span
+                            ><span aria-hidden="true">⌕</span
+                            ><input
+                                id="app-search"
+                                type="search"
+                                placeholder="Entreprise, poste, contact…" /></label
+                        ><label class="filter-label"
+                            >Statut<select id="status-filter">
+                                <option value="">Tous les statuts</option>
+                            </select></label
+                        ><label class="filter-label"
+                            >Contrat<select id="contract-filter">
+                                <option value="">Tous les contrats</option>
+                                <option>
+                                    Contrat de professionnalisation confirmé
+                                </option>
+                                <option>Contrat d’apprentissage</option>
+                                <option>CDD/CDI</option>
+                                <option>À vérifier</option>
+                                <option>Non compatible</option>
+                            </select></label
+                        >
+                    </div>
+                    <!-- Applications Table -->
+                    <div class="panel table-panel">
+                        <div id="applications-table" class="table-wrap"></div>
+                    </div>
+                    <p class="footnote">
+                        <i class="fa-regular fa-lightbulb"></i>
+                        Astuce : vérifie la compatibilité du contrat avant
+                        d’investir trop de temps dans une candidature.
+                    </p>
+                </section>
+
+                <!-- Companies View -->
+                <section
+                    class="view"
+                    id="view-companies"
+                    aria-labelledby="page-title"
+                >
+                    <div class="section-intro">
+                        <div>
+                            <p>
+                                Construis ton benchmark et repère les
+                                entreprises à contacter spontanément.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="toolbar">
+                        <label class="search-field"
+                            ><span class="sr-only"
+                                >Rechercher une entreprise</span
+                            ><span aria-hidden="true">⌕</span
+                            ><input
+                                id="company-search"
+                                type="search"
+                                placeholder="Entreprise, secteur, métier…" /></label
+                        ><label class="filter-label"
+                            >Compatibilité<select id="company-contract-filter">
+                                <option value="">Toutes</option>
+                                <option>Oui</option>
+                                <option>Non</option>
+                                <option>À vérifier</option>
+                                <option>Non précisé</option>
+                            </select></label
+                        >
+                    </div>
+                    <div class="panel table-panel">
+                        <div id="companies-table" class="table-wrap"></div>
+                    </div>
+                </section>
+                <!-- Settings View -->
+                <section
+                    class="view"
+                    id="view-settings"
+                    aria-labelledby="page-title"
+                >
+                    <div class="section-intro">
+                        <div>
+                            <p>
+                                Choisis entre un espace local sur cet appareil
+                                et un espace connecté synchronisé avec ton
+                                compte. Tu peux exporter et importer tes données
+                                à tout moment.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Settings Grid -->
+                    <div class="settings-grid">
+                        <section class="panel">
+                            <div class="panel-heading">
+                                <p class="eyebrow">COMPTE</p>
+                                <div class="account-avatar" aria-hidden="true">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                            </div>
+                            <h3>Compte Candidatech</h3>
+                            <p id="account-settings-description">
+                                Sans connexion, les données restent sur cet
+                                appareil.
+                            </p>
+                            <button
+                                class="button button-secondary"
+                                id="settings-account-action"
+                                type="button"
+                            >
+                                Se connecter ou créer un compte
+                            </button>
+                            <button
+                                class="button button-secondary"
+                                id="retry-remote-load"
+                                type="button"
+                                hidden
+                            >
+                                Réessayer le chargement
+                            </button>
+                        </section>
+                        <!-- Export Settings -->
+                        <section class="panel">
+                            <div class="panel-heading">
+                                <p class="eyebrow">SAUVEGARDE</p>
+                                <div class="default-icon" aria-hidden="true">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                                </div>
+                            </div>
+                            <h3>Exporter mes données</h3>
+                            <p>
+                                Télécharge un fichier JSON contenant tes
+                                candidatures et tes entreprises dans le mode
+                                actif.
+                            </p>
+                            <button
+                                class="button button-primary"
+                                id="export-json"
+                                type="button"
+                            >
+                                Exporter en JSON
+                            </button>
+                            <button
+                                class="button button-secondary"
+                                id="export-local-json"
+                                type="button"
+                            >
+                                Exporter la sauvegarde locale
+                            </button>
+                        </section>
+                        <section class="panel">
+                            <div class="panel-heading">
+                                <p class="eyebrow">RESTAURATION</p>
+                                <div class="default-icon">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                            </div>
+                            <h3>Importer une sauvegarde</h3>
+                            <p>
+                                Choisis un export JSON de Candidatech. L’import
+                                ajoute les enregistrements absents sans
+                                remplacer ceux qui existent déjà.
+                            </p>
+                            <label class="button button-secondary file-button"
+                                >Choisir un fichier JSON<input
+                                    id="import-json"
+                                    type="file"
+                                    accept=".json,application/json"
+                            /></label>
+                        </section>
+                        <section class="panel">
+                            <div class="panel-heading">
+                                <p class="eyebrow">TABLEUR</p>
+                                <div class="default-icon" aria-hidden="true">
+                                    <i class="fa-solid fa-file-csv"></i>
+                                </div>
+                            </div>
+                            <h3>Exporter en CSV</h3>
+                            <p>
+                                Ouvre ensuite le fichier dans Excel, LibreOffice
+                                ou Google Sheets.
+                            </p>
+                            <button
+                                class="button button-secondary"
+                                id="export-csv"
+                                type="button"
+                            >
+                                Exporter les candidatures en CSV
+                            </button>
+                            <button
+                                class="button button-secondary"
+                                id="export-companies-csv"
+                                type="button"
+                            >
+                                Exporter les entreprises en CSV
+                            </button>
+                        </section>
+                        <section class="panel" id="migration-panel" hidden>
+                            <p class="eyebrow">MIGRATION CONTRÔLÉE</p>
+                            <h3>Importer les données locales dans ce compte</h3>
+                            <p>
+                                Prévisualise le nombre d’enregistrements à
+                                migrer. Les identifiants déjà présents seront
+                                ignorés et la sauvegarde locale restera
+                                disponible.
+                            </p>
+                            <button
+                                class="button button-secondary"
+                                id="prepare-migration"
+                                type="button"
+                            >
+                                Préparer l’aperçu
+                            </button>
+                            <p
+                                id="migration-preview"
+                                class="operation-result"
+                                hidden
+                            ></p>
+                            <button
+                                class="button button-primary"
+                                id="confirm-migration"
+                                type="button"
+                                hidden
+                            >
+                                Confirmer et importer
+                            </button>
+                            <p
+                                id="migration-result"
+                                class="operation-result"
+                                role="status"
+                                aria-live="polite"
+                            ></p>
+                        </section>
+                        <section class="panel warning-panel">
+                            <div class="panel-heading">
+                                <p class="eyebrow">ZONE SENSIBLE</p>
+                                <div class="danger-icon" aria-hidden="true">
+                                    <i
+                                        class="fa-solid fa-triangle-exclamation"
+                                    ></i>
+                                </div>
+                            </div>
+                            <h3>Réinitialiser les données locales</h3>
+                            <p>
+                                Supprime uniquement la sauvegarde de ce
+                                navigateur. Les données Supabase ne sont pas
+                                modifiées.
+                            </p>
+                            <button
+                                class="button button-danger"
+                                id="reset-local-data"
+                                type="button"
+                            >
+                                Supprimer les données locales
+                            </button>
+                        </section>
+                        <section
+                            class="panel warning-panel"
+                            id="reset-remote-panel"
+                            hidden
+                        >
+                            <p class="eyebrow">ZONE SENSIBLE</p>
+                            <h3>Réinitialiser les données Supabase</h3>
+                            <p>
+                                Supprime les candidatures et entreprises de ce
+                                compte. La sauvegarde locale sur cet appareil
+                                reste intacte.
+                            </p>
+                            <button
+                                class="button button-danger"
+                                id="reset-remote-data"
+                                type="button"
+                            >
+                                Supprimer les données distantes
+                            </button>
+                        </section>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="footer-main">
+                        <section
+                            class="footer-intro"
+                            aria-label="À propos de Candidatech"
+                        >
+                            <div class="footer-brand">
+                                <div class="footer-brand-copy">
+                                    <strong
+                                        ><i
+                                            class="fa-solid fa-cent-sign"
+                                            aria-hidden="true"
+                                        ></i
+                                        >andidatech</strong
+                                    >
+                                    <span>Le cap sur ton prochain poste.</span>
+                                </div>
+                            </div>
+                            <p class="footer-description">
+                                Un espace simple pour organiser tes
+                                candidatures, tes relances et les entreprises
+                                que tu veux rejoindre.
+                            </p>
+                        </section>
+
+                        <div class="footer-column">
+                            <h2>Explorer</h2>
+                            <nav aria-label="Navigation de pied de page">
+                                <button
+                                    class="footer-link"
+                                    type="button"
+                                    data-view="dashboard"
+                                >
+                                    Vue d’ensemble
+                                </button>
+                                <button
+                                    class="footer-link"
+                                    type="button"
+                                    data-view="applications"
+                                >
+                                    Candidatures
+                                </button>
+                                <button
+                                    class="footer-link"
+                                    type="button"
+                                    data-view="companies"
+                                >
+                                    Entreprises cibles
+                                </button>
+                            </nav>
+                        </div>
+
+                        <div class="footer-column">
+                            <h2>Ton espace</h2>
+                            <p>
+                                Gère ton compte, tes sauvegardes et tes
+                                préférences de données.
+                            </p>
+                            <button
+                                class="footer-link footer-settings-link"
+                                type="button"
+                                data-view="settings"
+                            >
+                                Gérer mes données
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="footer-bottom">
+                        <span
+                            ><i
+                                    class="fa-solid fa-cent-sign"
+                                    aria-hidden="true"
+                                ></i
+                                >andidatech <span aria-hidden="true">·</span> Suivi
+                            de candidatures</span
+                        >
+                        <span class="footer-status">
+                            <span
+                                class="footer-status-dot"
+                                aria-hidden="true"
+                            ></span>
+                            <span id="footer-storage-label">Mode local</span>
+                        </span>
+                    </div>
+                </footer>
+            </main>
+        </div>
+        <!-- Application Dialog -->
+        <dialog
+            id="record-dialog"
+            class="record-dialog"
+            aria-labelledby="dialog-title"
+        >
+            <form id="record-form" method="dialog">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">FICHE DE SUIVI</p>
+                        <h2 id="dialog-title">Nouvelle candidature</h2>
+                    </div>
+                    <button
+                        type="button"
+                        class="icon-button"
+                        id="dialog-close"
+                        aria-label="Fermer la fenêtre"
+                    >
+                        ×
+                    </button>
+                </div>
+                <input type="hidden" id="record-id" />
+                <div class="form-grid">
+                    <label
+                        >Entreprise <span class="required">*</span
+                        ><input
+                            id="f-company"
+                            required
+                            maxlength="120"
+                            autocomplete="organization"
+                    /></label>
+                    <label
+                        >Intitulé du poste <span class="required">*</span
+                        ><input id="f-role" required maxlength="160"
+                    /></label>
+                    <label
+                        >Date de candidature <input id="f-date" type="date"
+                    /></label>
+                    <label
+                        >Lien de l’offre<input
+                            id="f-url"
+                            type="url"
+                            placeholder="https://…"
+                    /></label>
+                    <label
+                        >Type de contrat<select id="f-contract">
+                            <option>À vérifier</option>
+                            <option>
+                                Contrat de professionnalisation confirmé
+                            </option>
+                            <option>Contrat d’apprentissage</option>
+                            <option>CDD/CDI</option>
+                            <option>Non compatible</option>
+                        </select></label
+                    >
+                    <label
+                        >CV utilisé / version<input
+                            id="f-cv"
+                            maxlength="100"
+                            placeholder="CV DevOps v2"
+                    /></label>
+                    <label
+                        >Canal<select id="f-channel">
+                            <option>Site carrière</option>
+                            <option>LinkedIn</option>
+                            <option>France Travail</option>
+                            <option>HelloWork</option>
+                            <option>LesJeudis</option>
+                            <option>Welcome to the Jungle</option>
+                            <option>La Bonne Alternance</option>
+                            <option>Candidature spontanée</option>
+                            <option>Contact réseau</option>
+                            <option>Autre</option>
+                        </select></label
+                    >
+                    <label
+                        >Contact / recruteur<input
+                            id="f-contact"
+                            maxlength="120"
+                    /></label>
+                    <label>Statut<select id="f-status"></select></label>
+                    <label
+                        >Date de contact<input id="f-contact-date" type="date"
+                    /></label>
+                    <label
+                        >Date de relance prévue<input
+                            id="f-followup-date"
+                            type="date"
+                    /></label>
+                    <label
+                        >Date de relance faite<input
+                            id="f-followup-done"
+                            type="date"
+                    /></label>
+                    <label class="full-field"
+                        >Prochaine action <span class="required">*</span
+                        ><input
+                            id="f-next-action"
+                            required
+                            maxlength="180"
+                            placeholder="Ex. Relancer le recruteur par e-mail"
+                    /></label>
+                    <label
+                        >Échéance de la prochaine action<input
+                            id="f-due-date"
+                            type="date"
+                    /></label>
+                    <label class="full-field"
+                        >Retour / notes<textarea
+                            id="f-notes"
+                            rows="3"
+                            maxlength="1500"
+                            placeholder="Éléments utiles, réponse reçue, points à préparer…"
+                        ></textarea>
+                    </label>
+                </div>
+                <div class="dialog-actions">
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="dialog-cancel"
+                    >
+                        Annuler</button
+                    ><button type="submit" class="button button-primary">
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </dialog>
+        <!-- Company Dialog  -->
+        <dialog
+            id="company-dialog"
+            class="record-dialog"
+            aria-labelledby="company-dialog-title"
+        >
+            <form id="company-form" method="dialog">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">BENCHMARK</p>
+                        <h2 id="company-dialog-title">Nouvelle entreprise</h2>
+                    </div>
+                    <button
+                        type="button"
+                        class="icon-button"
+                        id="company-dialog-close"
+                        aria-label="Fermer la fenêtre"
+                    >
+                        ×
+                    </button>
+                </div>
+                <input type="hidden" id="company-id" />
+                <div class="form-grid">
+                    <label
+                        >Entreprise <span class="required">*</span
+                        ><input id="c-name" required maxlength="120"
+                    /></label>
+                    <label
+                        >Secteur / activité<input id="c-sector" maxlength="140"
+                    /></label>
+                    <label
+                        >Localisation<input id="c-location" maxlength="120"
+                    /></label>
+                    <label
+                        >Site carrière<input
+                            id="c-career"
+                            type="url"
+                            placeholder="https://…"
+                    /></label>
+                    <label class="full-field"
+                        >Métiers / équipes à cibler<input
+                            id="c-teams"
+                            maxlength="200"
+                            placeholder="Systèmes, cloud, plateforme…"
+                    /></label>
+                    <label class="full-field"
+                        >Offres DevOps / systèmes repérées<textarea
+                            id="c-offers"
+                            rows="2"
+                            maxlength="800"
+                        ></textarea>
+                    </label>
+                    <label
+                        >Contrat de professionnalisation<select id="c-contract">
+                            <option>À vérifier</option>
+                            <option>Oui</option>
+                            <option>Non</option>
+                            <option>Non précisé</option>
+                        </select></label
+                    >
+                    <label
+                        >Contact / interlocuteur<input
+                            id="c-contact"
+                            maxlength="120"
+                    /></label>
+                    <label
+                        >Lien LinkedIn du contact<input
+                            id="c-linkedin"
+                            type="url"
+                            placeholder="https://…"
+                    /></label>
+                    <label
+                        >Date de vérification<input id="c-verified" type="date"
+                    /></label>
+                    <label
+                        >Action prévue<input
+                            id="c-action"
+                            maxlength="180"
+                            placeholder="Ex. Identifier un recruteur"
+                    /></label>
+                    <label
+                        >Statut de prospection<select id="c-status">
+                            <option>À rechercher</option>
+                            <option>À contacter</option>
+                            <option>Contacté</option>
+                            <option>Relance à faire</option>
+                            <option>Offre repérée</option>
+                            <option>Candidature envoyée</option>
+                            <option>Pas de cible pour le moment</option>
+                        </select></label
+                    >
+                    <label class="full-field"
+                        >Notes<textarea
+                            id="c-notes"
+                            rows="3"
+                            maxlength="1200"
+                        ></textarea>
+                    </label>
+                </div>
+                <div class="dialog-actions">
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="company-dialog-cancel"
+                    >
+                        Annuler</button
+                    ><button type="submit" class="button button-primary">
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </dialog>
+        <!-- Read-only record details -->
+        <dialog
+            id="detail-dialog"
+            class="record-dialog detail-dialog"
+            aria-labelledby="detail-title"
+        >
+            <div class="detail-dialog-inner">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">FICHE DE CONSULTATION</p>
+                        <h2 id="detail-title"></h2>
+                    </div>
+                    <button
+                        type="button"
+                        class="icon-button"
+                        id="detail-dialog-close"
+                        aria-label="Fermer la fenêtre"
+                    >
+                        ×
+                    </button>
+                </div>
+                <div id="detail-content" class="detail-content"></div>
+                <div class="dialog-actions">
+                    <button
+                        type="button"
+                        class="button button-danger"
+                        id="detail-delete"
+                    >
+                        Supprimer
+                    </button>
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="detail-edit"
+                    >
+                        Modifier
+                    </button>
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="detail-dialog-cancel"
+                    >
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </dialog>
+        <!-- Auth Dialog -->
+        <dialog
+            id="auth-dialog"
+            class="record-dialog auth-dialog"
+            aria-labelledby="auth-title"
+        >
+            <form id="auth-form" method="dialog">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">ESPACE PERSONNEL</p>
+                        <h2 id="auth-title">Se connecter</h2>
+                    </div>
+                    <button
+                        type="button"
+                        class="icon-button"
+                        id="auth-dialog-close"
+                        aria-label="Fermer la fenêtre"
+                    >
+                        ×
+                    </button>
+                </div>
+                <div
+                    class="auth-mode-switch"
+                    role="group"
+                    aria-label="Type d’accès"
+                >
+                    <button
+                        type="button"
+                        class="is-active"
+                        data-auth-mode="signin"
+                    >
+                        Connexion
+                    </button>
+                    <button type="button" data-auth-mode="signup">
+                        Créer un compte
+                    </button>
+                </div>
+                <label class="auth-name-field" id="auth-name-field" hidden>
+                    Nom affiché
+                    <input
+                        id="auth-name"
+                        type="text"
+                        maxlength="120"
+                        autocomplete="name"
+                    />
+                </label>
+                <label class="auth-field">
+                    Adresse e-mail
+                    <input
+                        id="auth-email"
+                        type="email"
+                        required
+                        autocomplete="email"
+                    />
+                </label>
+                <label class="auth-field">
+                    Mot de passe
+                    <input
+                        id="auth-password"
+                        type="password"
+                        required
+                        minlength="8"
+                        autocomplete="current-password"
+                    />
+                </label>
+                <p class="auth-notice">
+                    Après connexion, les données du compte sont chargées depuis
+                    la base de données. Les données locales ne sont migrées qu’à
+                    ta demande.
+                </p>
+                <p
+                    class="auth-message"
+                    id="auth-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+                <div class="dialog-actions">
+                    <button
+                        type="submit"
+                        class="button button-primary"
+                        id="auth-submit"
+                    >
+                        Se connecter
+                    </button>
+                </div>
+            </form>
+        </dialog>
+
+        <!-- Toast notifications -->
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </body>
+</html>
