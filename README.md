@@ -1,9 +1,4 @@
-
-<p style="text-align: center; margin:" align="center">
-  <pre style="background-color:#267a61; ; color:white; padding:24px 12px; border-radius:8px; font-family:'Lucida Console',Monaco,monospace; font-size:18px; line-height:12px; letter-spacing: 2px; overflow-x:auto;">
-            [¢]            CANDIDATECH            [¢]  
-</pre>
-</p>
+# [¢]            CANDIDATECH   
 
 </p>
   <p align="center">
