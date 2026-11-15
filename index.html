@@ -2,36 +2,101 @@
 <html lang="fr" data-page="landing">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
         <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#B8E4CF" />
+         
+        <meta name="application-name" content="Candidatech" />
+         
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+         
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+         
+        <meta name="apple-mobile-web-app-title" content="Candidatech" />
+         
+        <link rel="manifest" href="./manifest.json" />
         <meta
             name="description"
-            content="Candidatech aide à suivre tes candidatures, tes relances et tes entreprises cibles, sans tableur tentaculaire."
+            content="Candidatech aide à suivre tes candidatures, tes relances et tes entreprises cibles, sans tableur tentaculaire, organise ta recherche d'emploi, d'alternance ou de stage sans tableur. Suivi des candidatures, rappels de relances et entreprises cibles. 100 % gratuit et données locales."
         />
         <meta
             name="keywords"
-            content="suivi candidature, alternance, emploi, relance, entreprises"
+            content="suivi candidature, recherche emploi, alternance, stage, organisation recrutement, relance recruteur, outil gratuit"
         />
         <meta name="author" content="https://github.com/Monsieur9Bre99" />
+        <meta name="robots" content="index, follow" />
+        <!-- Open Graph -->
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Candidatech" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta
+            property="og:url"
+            content="https://monsieur9bre99.github.io/Candidatech/"
+        />
         <meta
             property="og:title"
             content="Candidatech — Le cap sur ton prochain poste"
         />
         <meta
             property="og:description"
-            content="Un espace simple pour suivre tes candidatures, tes relances et tes entreprises cibles."
+            content="Suis tes candidatures, tes relances et tes entreprises cibles dans un espace simple et gratuit. Organise ta recherche facilement."
         />
+        <meta
+            property="og:image"
+            content="https://monsieur9bre99.github.io/Candidatech/og-image.png"
+        />
+        <meta
+            property="og:image:alt"
+            content="Aperçu de Candidatech, application de suivi des candidatures"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <title>Candidatech - Le cap sur ton prochain poste</title>
-        <!-- Favicon -->
+        <!-- Canonical URL -->
+        <link
+            rel="canonical"
+            href="https://monsieur9bre99.github.io/Candidatech/"
+        />
+        <!-- Favicons & Icônes -->
+         
+        <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+        <link rel="shortcut icon" href="./assets/icons/favicon.ico" type="image/x-icon">
+         
         <link
             rel="icon"
             type="image/png"
-            sizes="32x32"
-            href="candidatech_favicon.png"
+            sizes="192x192"
+            href="./assets/icons/icon-192.png"
         />
+         
+        <link
+            rel="apple-touch-icon"            sizes="180x180"
+            href="./assets/icons/apple-touch-icon.png"
+        />
+
         <!-- Styles -->
         <link rel="stylesheet" href="css/landing.css" />
+        <!-- JSON-LD Schema -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Candidatech",
+                "url": "https://monsieur9bre99.github.io/Candidatech/",
+                "description": "Application web gratuite de suivi de candidatures, de relances et d'entreprises cibles pour la recherche d'emploi, d'alternance et de stage.",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "All",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "EUR"
+                }
+            }
+        </script>
         <script type="module" src="js/landing.js" defer></script>
     </head>
     <body class="landing-page">
@@ -80,9 +145,12 @@
                 <div class="hero-copy">
                     <p class="eyebrow">
                         <span aria-hidden="true">
-                            <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
-                        </span> EMPLOI · ALTERNANCE ·
-                        STAGE
+                            <i
+                                class="fa-solid fa-asterisk"
+                                aria-hidden="true"
+                            ></i>
+                        </span>
+                        EMPLOI · ALTERNANCE · STAGE
                     </p>
                     <h1>
                         Ta recherche d’emploi mérite mieux qu’un
@@ -133,7 +201,8 @@
                                 candidatech
                             </div>
                             <span class="preview-local"
-                                ><i class="" aria-hidden="true"></i> Espace local</span
+                                ><i class="" aria-hidden="true"></i> Espace
+                                local</span
                             >
                         </div>
                         <!-- preview body -->
@@ -151,8 +220,7 @@
                             <div class="preview-stats">
                                 <div>
                                     <span>Candidatures actives</span
-                                    ><strong>12</strong
-                                    ><small>ça avance</small>
+                                    ><strong>12</strong><small>ça avance</small>
                                 </div>
                                 <div>
                                     <span>Relances à faire</span
@@ -175,10 +243,12 @@
                                     <span
                                         class="preview-icon preview-icon-green"
                                         aria-hidden="true"
-                                        >
-                                        <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-                                        </span
                                     >
+                                        <i
+                                            class="fa-solid fa-rocket"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </span>
                                     <span
                                         ><strong>Relancer le recruteur</strong
                                         ><small
@@ -192,13 +262,12 @@
                                     <span
                                         class="preview-icon preview-icon-yellow"
                                         aria-hidden="true"
-                                        >
+                                    >
                                         <i
                                             class="fa-solid fa-building-circle-arrow-right"
                                             aria-hidden="true"
                                         ></i>
-                                        </span
-                                    >
+                                    </span>
                                     <span
                                         ><strong>Préparer l’entretien</strong
                                         ><small
@@ -226,17 +295,15 @@
                 <span
                     class="hero-decoration hero-decoration-one rotate"
                     aria-hidden="true"
-                    >
-                    <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
-                    </span
                 >
+                    <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
+                </span>
                 <span
                     class="hero-decoration hero-decoration-two rotate reverse"
                     aria-hidden="true"
-                    >
-                    <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
-                    </span
                 >
+                    <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
+                </span>
             </section>
 
             <section class="trust-strip" aria-label="En bref">
@@ -358,9 +425,8 @@
                             <span aria-hidden="true">
                                 <i
                                     class="fa-solid fa-arrow-up-right-from-square"
-                                ></i>
-                            </span></a
-                        >
+                                ></i> </span
+                        ></a>
                     </div>
                     <ol class="steps-list">
                         <li>
@@ -415,8 +481,7 @@
                         </span>
                     </a>
                     <span class="closing-doodle" aria-hidden="true">
-                        <i class="fa-solid fa-asterisk" 
-                            aria-hidden="true"></i>
+                        <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
                     </span>
                 </div>
             </section>
@@ -445,8 +510,8 @@
                 <span aria-hidden="true">
                     <i class="fa-solid fa-github"></i>
                 </span>
-                Code source </a
-            >
+                Code source
+            </a>
             <span>© 2026 Candidatech</span>
         </footer>
     </body>

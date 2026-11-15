@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Candidatech",
+    "short_name": "Candidatech",
+    "description": "Rassemble tes candidatures, tes relances et tes entreprises cibles. Gratuit, local d'abord et sans tableur tentaculaire. Organise ta recherche d'emploi, d'alternance ou de stage",
+    "lang": "fr-FR",
+    "dir": "ltr",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#B8E4CF",
+    "theme_color": "#B8E4CF",
+    "categories": [
+        "productivity",
+        "business",
+        "utilities"
+    ],
+    "icons": [
+        {
+            "src": "./assets/logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "./assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Ouvrir l'application",
+            "short_name": "App",
+            "description": "Accéder directement à mon tableau de bord Candidatech",
+            "url": "./",
+            "icons": [
+                {
+                    "src": "./assets/icons/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}

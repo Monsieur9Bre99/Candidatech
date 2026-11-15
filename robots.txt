@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monsieur9bre99.github.io/Candidatech/sitemap.xml
